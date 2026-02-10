@@ -1,2 +1,14 @@
 # ir-remapper
-Lua-based IR signal remapper for USB-IR modules. Trigger custom IR commands upon receiving specific signals.
+
+`ir-remapper` は、USB赤外線リモコンキットを使用して、特定の赤外線信号を受信した際に、あらかじめ定義した別の赤外線信号を自動的に送信する（リマップする）ための軽量なLuaデーモンです。
+
+### 🌟 主な特徴
+- **簡単設定**: `config.lua` にテーブル形式で受信/送信のペアを書くだけ。
+- **Luaパワー**: 設定ファイル自体がLuaスクリプトなので、複雑なロジックも記述可能。
+- **systemd対応**: 付属の `install.sh` で、Linuxのバックグラウンドサービスとして即座に常駐。
+- **軽量**: メモリやCPUをほとんど消費せず、Raspberry Piなどの常時稼働環境に最適。
+
+### 🛠 構成
+- `bin/main.lua`: 受信待機・照合・送信を行うコアロジック。
+- `config/config.lua`: 赤外線コードのキーマップ定義。
+- `systemd/`: OS起動時に自動実行するためのユニットファイル。
