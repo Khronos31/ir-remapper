@@ -1,0 +1,16 @@
+[Unit]
+Description=USB-IR Remote Control Daemon (ir-remapper)
+After=network.target
+
+[Service]
+# プロジェクト名に合わせてパスを修正
+WorkingDirectory=%h/ir-remapper
+ExecStart=/usr/bin/lua bin/main.lua
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
+

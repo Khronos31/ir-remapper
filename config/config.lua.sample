@@ -1,0 +1,24 @@
+-- ir-remapper configuration sample
+-- Copy this file to config.lua and modify it.
+
+local remap = {}
+
+-- Define your IR mapping rules here.
+-- Format: remap["RECEIVE_DATA"] = "SEND_DATA"
+-- Note: Use \xHH hex escape sequences for binary data.
+
+-- Example:
+-- Receive: 02 20 00 12 34 56 78
+-- Send:    02 20 00 AB CD EF 01
+remap["\x02\x20\x00\x12\x34\x56\x78"] = "\x02\x20\x00\xAB\xCD\xEF\x01"
+
+-- You can add more rules:
+-- remap["\x02\x20\x00\x11\x22\x33\x44"] = "\x02\x20\x00\x55\x66\x77\x88"
+
+return {
+  remap = remap,
+  
+  -- Optional: Future extensions (e.g., log level, device settings)
+  -- log_level = "info",
+}
+
