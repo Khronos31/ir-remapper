@@ -5,7 +5,7 @@ After=network.target
 [Service]
 # プロジェクト名に合わせてパスを修正
 WorkingDirectory=%h/ir-remapper
-ExecStart=/usr/bin/lua bin/main.lua
+ExecStart=/usr/bin/lua %h/ir-remapper/bin/main.lua
 Restart=always
 RestartSec=5
 StandardOutput=journal
@@ -13,4 +13,3 @@ StandardError=journal
 
 [Install]
 WantedBy=default.target
-

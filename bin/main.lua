@@ -4,6 +4,10 @@
 local script_path = debug.getinfo(1).source:match("@?(.*)/") or "."
 package.path = script_path .. "/../config/?.lua;" .. package.path
 
+package.path = "/home/yunomin61/.luarocks/share/lua/5.4/?.lua;/home/yunomin61/.luarocks/share/lua/5.4/?/init.lua;" .. package.path
+package.cpath = "/home/yunomin61/.luarocks/lib/lua/5.4/?.so;" .. package.cpath
+
+local socket = require("socket")
 local usbir = require("usbir")
 local config = require("config")
 
@@ -35,6 +39,7 @@ while true do
         local send_data = config.remap[recv_data]
         if send_data then
             log("🎯 マッチ！送信中...")
+            socket.select(nil, nil, 0.4)
             dev:send(send_data)
         end
     end
