@@ -20,6 +20,10 @@ local root = script_path:gsub("/bin$", "")
 package.path = root .. "/config/?.lua;" .. package.path
 package.cpath = root .. "/bin/?.so;" .. package.cpath
 
+local socket = require("socket")
+local usbir = require("usbir")
+local config = require("config")
+
 -- ログ出力用関数
 local function log(msg)
   print(string.format("[%s] %s", os.date("%Y-%m-%d %H:%M:%S"), msg))
@@ -51,13 +55,18 @@ while true do
 
     -- 設定ファイルから対応するアクションを取得
     local action = config.remap[recv_data]
+        
+    -- 2. 共通設定になければ、現在のモード設定を確認
+    if not action then
+        action = config.current_mode[recv_data]
+    end
 
     if action then
       log("🎯 マッチ！実行中...")
 
       if type(action) == "function" then
         -- 関数の場合は実行
-        action(recv_data)
+        action(recv_data, dev)
       elseif type(action) == "table" then
         -- テーブル（配列）の場合は順次送信
         socket.select(nil, nil, 0.4) -- 送信前の安定化待ち
